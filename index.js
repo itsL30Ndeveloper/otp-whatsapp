@@ -1,5 +1,4 @@
 const wa = require('@open-wa/wa-automate');
-const otp = Math.floor(Math.random() * 9999) + 1000;
 const http = require('http');
 const express = require('express');
 const app = express();
@@ -11,6 +10,33 @@ app.use(express.urlencoded({
   app.get('/', (req, res)=>{
     res.sendFile('public/index.html', {
       root:__dirname
+    })
+})
+
+  app.get('/status', (req, res)=>{
+    res.status(200).json ({
+      status:1,
+      message:"Server Status : OK",
+    })
+})
+
+app.post('/doVerifikasi', (req, res)=>{
+    var status = 0;
+    var message = null;
+    var phone = req.body.phone
+    if(phone){
+      var pesan = "Kode OTP Kamu : " + Math.floor(Math.random() * 9999) + 1000;
+      await whatsappapi.sendText(phone, pesan).then((respon)=>{
+        status = 1;
+        message = "Kode OTP Berhasil Dikirim!";
+      }).catch((err)=>{
+        message = "Terjadi Kesalahan!" + err;
+      });
+    }
+                                                    
+    res.status(200).json ({
+      status:1,
+      message:"Server Status : OK",
     })
 })
 
@@ -28,6 +54,7 @@ wa.create({
 }).then(client => start(client));
 
 function start(client) {
+  whatsappapi = client;
   client.onMessage(async message => {
     if (message.body === 'Hi') {
       await client.sendText(message.from, '👋 Hello!');
