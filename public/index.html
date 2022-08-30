@@ -6,7 +6,35 @@
   </head>
   
   <body>
-    ok
+    <center>
+      <label>Phone</label>
+      <input type="text" id="phone">
+      <button id="sending">Send</button>
+    </center>
   </body>
+  <script type="text/javascript">
+    $('body').delegate('#send', 'click', function(ev) {
+      $.ajax({
+        url:'13.212.214.69:8087/doVerifikasi', 
+        type:'post',
+        dataType:'json',
+        data:{
+            phone:$('#phone').val(),
+        },
+        success:function(respon){
+            if(respon.status==1{
+            alert(respon.message);
+            }
+            else{
+                alert(respon.message);
+            }
+        },
+        error:function(err){
+            alert('Terjadi Kesalahan!');
+    }
+    })
+    });
+    
+  </script>
 </html>
 
