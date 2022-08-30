@@ -27,7 +27,7 @@ app.post('/doVerifikasi', async (req, res)=>{
     var phone = req.body.phone
     if(phone){
       var pesan = "Kode OTP Kamu : " + Math.floor(Math.random() * 9999) + 1000;
-      await whatsappapi.sendText(phone, pesan).then((respon)=>{
+      await whatsappapi.sendText(phone+'@c.us', pesan).then((respon)=>{
         status = 1;
         message = "Kode OTP Berhasil Dikirim!";
       }).catch((err)=>{
