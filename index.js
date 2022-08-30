@@ -3,6 +3,7 @@ const http = require('http');
 const express = require('express');
 const app = express();
 const server = http.createServer(app);
+var whatsappapi = null;
 app.use(express.urlencoded({
   extended:true
   }));
@@ -20,7 +21,7 @@ app.use(express.urlencoded({
     })
 })
 
-app.post('/doVerifikasi', (req, res)=>{
+app.post('/doVerifikasi', async (req, res)=>{
     var status = 0;
     var message = null;
     var phone = req.body.phone
