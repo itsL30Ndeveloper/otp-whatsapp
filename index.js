@@ -35,8 +35,8 @@ app.post('/doVerifikasi', (req, res)=>{
     }
                                                     
     res.status(200).json ({
-      status:1,
-      message:"Server Status : OK",
+      status:status,
+      message:message,
     })
 })
 
